@@ -208,6 +208,7 @@ some_dates <- c(08111997, 11141995, 10011993)
 some_dates_converted <- mdy(some_dates)
 some_dates_converted
 
+class(some_dates_converted)
 ```
 
 #### 3C. Follow me
@@ -254,11 +255,11 @@ Starting from the `lakers` dataset, create a new dataset called `gasol_hookshots
 gasol_hookshots <- lakers %>% 
   filter(player == "Pau Gasol",type == "hook") %>% 
   mutate(Date = ymd(date)) %>% 
-  mutate(month= month(Date)) 
+  mutate(month_new= month(Date)) 
 
-pau_hooks <- gasol_hookshots %>% 
-  group_by(month) %>% 
-  summarize(total_shots_taken = count(month))
+pau_hooks <- gasol_hookshots %>%
+  count(month_new) # gives count of shots per month
+  
 
 ```
 
@@ -309,6 +310,11 @@ Note: If you add another condition within `case_when()` that is `TRUE ~ "some th
 ```{r}
 # Your code here: 
 
+storm_danger <- storms %>% 
+  mutate(danger = case_when(
+    status == "hurricane" ~ "high",
+    TRUE ~ "moderate"))
+  
 
 ```
 
